@@ -117,5 +117,37 @@ cat mergedfastq/fungiR2_closed_reference.fasta mergedfastq/fungiR2_denovo_otus.f
 ./usearch64 -usearch_global mergedfastq/demultiplexed_seqs_2a.fq -db mergedfastq/fungiR2_full_rep_set.fna  -strand plus -id 0.97 -uc mergedfastq/fungiR2_OTU_map.uc -otutabout mergedfastq/ITSR2_OTU_table.txt -biomout mergedfastq/ITSR2_OTU_jsn.biom
 ```
 
+## Assign taxonomy to the OTUs in QIIME (v. 1.9.1)
+```
+#source activate qiime1
+#bacteria
+assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna'
+
+#fungi
+assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungi_full_rep_set.fna -o mergedfastq/fungi_taxonomy.fna -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
+
+assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungiR2_full_rep_set.fna -o mergedfastq/fungiR2_taxonomy.fna -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
+```
+
+## Add taxonomy to OTU table
+```
+#bacteria
+biom convert -i mergedfastq/16S_OTU_table.txt -o mergedfastq/16S_OTU_table.biom --to-hdf5 --table-type='OTU table'
+
+biom add-metadata -i mergedfastq/16S_OTU_table.biom -o mergedfastq/16S_table_tax.biom --observation-metadata-fp=mergedfastq/16S_taxonomy/16S_full_rep_set_tax_assignments.txt -sc-separated=taxonomy --observation-header=OTUID,taxonomy
+
+#fungi
+biom convert -i mergedfastq/ITS_OTU_table.txt -o mergedfastq/ITS_OTU_table.biom --to-hdf5 --table-type='OTU table'
+
+biom add-metadata -i mergedfastq/ITS_OTU_table.biom -o mergedfastq/ITS_table_tax.biom --observation-metadata-fp=mergedfastq/fungi_taxonomy/fungi_full_rep_set_tax_assignments.txt --sc-separated=taxonomy --observation-header=OTUID,taxonomy
+
+biom convert -i mergedfastq/ITSR2_OTU_table.txt -o mergedfastq/ITSR2_OTU_table.biom --to-hdf5 --table-type='OTU table'
+
+biom add-metadata -i mergedfastq/ITSR2_OTU_table.biom -o mergedfastq/ITSR2_table_tax.biom --observation-metadata-fp=mergedfastq/fungiR2_taxonomy/fungiR2_full_rep_set_tax_assignments.txt --sc-separated=taxonomy --observation-header=OTUID,taxonomy
+```
+
+
+
+
 
 
