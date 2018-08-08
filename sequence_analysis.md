@@ -146,8 +146,22 @@ biom convert -i mergedfastq/ITSR2_OTU_table.txt -o mergedfastq/ITSR2_OTU_table.b
 biom add-metadata -i mergedfastq/ITSR2_OTU_table.biom -o mergedfastq/ITSR2_table_tax.biom --observation-metadata-fp=mergedfastq/fungiR2_taxonomy/fungiR2_full_rep_set_tax_assignments.txt --sc-separated=taxonomy --observation-header=OTUID,taxonomy
 ```
 
+## Filter out unwanted taxa Chloroplasts, mitochondria, Archaea
+```
+#filter unwanted bacterial taxa
+filter_taxa_from_otu_table.py -i  mergedfastq/16S_table_tax.biom -o mergedfastq/16S_table_tax_filt.biom -n D_4__Mitochondria,D_3__Chloroplast,D_0__Archaea
 
+#summarize taxonomy
+summarize_taxa.py -i mergedfastq/16S_table_tax_filt.biom -o 16S_taxa_sum
+summarize_taxa.py -i mergedfastq/ITS_table_tax.biom -o ITS_taxa_sum
+summarize_taxa.py -i mergedfastq/ITSR2_table_tax.biom -o ITSR2_taxa_sum
 
+#convert filtered OTU tables to text files
+biom convert -i mergedfastq/16S_table_tax_filt.biom -o mergedfastq/16S_table_tax_filt.txt --table-type='OTU table' --header-key=taxonomy --to-tsv
 
+biom convert -i mergedfastq/ITS_table_tax.biom -o mergedfastq/ITS_table_tax_filt.txt --table-type='OTU table' --header-key=taxonomy --to-tsv
+
+biom convert -i mergedfastq/ITSR2_table_tax.biom -o mergedfastq/ITSR2_table_tax_filt.txt --table-type='OTU table' --header-key=taxonomy --to-tsv
+```
 
 
