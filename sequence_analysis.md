@@ -3,8 +3,6 @@
 cd mergedfastq
 cp demultiplexed_seqs_2.fq ./demultiplexed_seqs_2a.fq
 
-
-
 #fix bacteria
 sed -i 's/barcodelabel/sample/g' 16S_demultiplexed_seqs_1.fq
 sed -i 's/barcodelabel/sample/g' 16S_demultiplexed_seqs_2.fq
@@ -20,8 +18,13 @@ sed -i 's/ 3:N:/3:N:/g' demultiplexed_seqs_2.fq
 cp demultiplexed_seqs_2.fq ./demultiplexed_seqs_2a.fq
 
 #verify samples
-cd ..
-./usearch64 -fastx_get_sample_names reads.fa -output samples.txt
+#cd ..
+#./usearch64 -fastx_get_sample_names reads.fa -output samples.txt
+```
+
+## use ITSx to remove ribosomal fragments from ITS reads
+```
+#add code
 ```
 
 ## Join paired ends
@@ -124,9 +127,9 @@ cat mergedfastq/fungiR2_closed_reference.fasta mergedfastq/fungiR2_denovo_otus.f
 assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna'
 
 #fungi
-assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungi_full_rep_set.fna -o mergedfastq/fungi_taxonomy -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
+assign_taxonomy.py -i mergedfastq/fungi_full_rep_set.fna -o mergedfastq/fungi_taxonomy -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
 
-assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungiR2_full_rep_set.fna -o mergedfastq/fungiR2_taxonomy -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
+assign_taxonomy.py -i mergedfastq/fungiR2_full_rep_set.fna -o mergedfastq/fungiR2_taxonomy -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
 ```
 
 ## Add taxonomy to OTU table
