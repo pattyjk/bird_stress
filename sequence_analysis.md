@@ -124,9 +124,9 @@ cat mergedfastq/fungiR2_closed_reference.fasta mergedfastq/fungiR2_denovo_otus.f
 assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna'
 
 #fungi
-assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungi_full_rep_set.fna -o mergedfastq/fungi_taxonomy.fna -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
+assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungi_full_rep_set.fna -o mergedfastq/fungi_taxonomy -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
 
-assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungiR2_full_rep_set.fna -o mergedfastq/fungiR2_taxonomy.fna -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
+assign_taxonomy.py --similarity 0.5 -i mergedfastq/fungiR2_full_rep_set.fna -o mergedfastq/fungiR2_taxonomy -r '/home/pattyjk/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta' -t '/home/pattyjk/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt' 
 ```
 
 ## Add taxonomy to OTU table
@@ -155,8 +155,17 @@ filter_taxa_from_otu_table.py -i  mergedfastq/16S_table_tax.biom -o mergedfastq/
 summarize_taxa.py -i mergedfastq/16S_table_tax_filt.biom -o 16S_taxa_sum
 summarize_taxa.py -i mergedfastq/ITS_table_tax.biom -o ITS_taxa_sum
 summarize_taxa.py -i mergedfastq/ITSR2_table_tax.biom -o ITSR2_taxa_sum
+```
+## Get only bird samples
+```
+filter_samples_from_otu_table.py -i mergedfastq/ITSR2_table_tax.biom -o mergedfastq/ITSR2_bird_only.biom -m ITS/ITS_MappingFileMADDEN_uparse.txt -s 'Sample_Type:Bird'
 
-#convert filtered OTU tables to text files
+filter_samples_from_otu_table.py -i mergedfastq/ITS_table_tax.biom -o mergedfastq/ITS_bird_only.biom -m ITS/ITS_MappingFileMADDEN.txt -s 'Sample_Type:Bird'
+```
+
+
+## Convert filtered OTU tables to text files
+```
 biom convert -i mergedfastq/16S_table_tax_filt.biom -o mergedfastq/16S_table_tax_filt.txt --table-type='OTU table' --header-key=taxonomy --to-tsv
 
 biom convert -i mergedfastq/ITS_table_tax.biom -o mergedfastq/ITS_table_tax_filt.txt --table-type='OTU table' --header-key=taxonomy --to-tsv
