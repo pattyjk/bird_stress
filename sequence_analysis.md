@@ -1,18 +1,22 @@
 ## Demultiplex reads
 ```
 python prep_fastq_for_uparse_paired.py -o 16S_demult -m 16S_map.txt -i Madden_16s_NoIndex_L001_R1_001.fastq -r Madden_16s_NoIndex_L001_R3_001.fastq -b Madden_16s_NoIndex_L001_R2_001.fastq -c
+
+cp 16S_demult/demultiplexed_seqs_* /home/pattyjk/Bird_Stress_Project/Reads/mergedfastq/
 ```
 
 ## fix read headers
 ```
+cd ..
 cd mergedfastq
-cp demultiplexed_seqs_2.fq ./demultiplexed_seqs_2a.fq
 
 #fix bacteria
 sed -i 's/barcodelabel/sample/g' demultiplexed_seqs_1.fq
 sed -i 's/barcodelabel/sample/g' demultiplexed_seqs_2.fq
 sed -i 's/ 1:N:0:/1:N:0/g' demultiplexed_seqs_1.fq
 sed -i 's/ 3:N:0:/3:N:0/g' demultiplexed_seqs_2.fq
+
+cd ..
 ```
 
 ## use ITSx to remove ribosomal fragments from ITS reads
@@ -148,7 +152,7 @@ biom add-metadata -i mergedfastq/ITSR2_OTU_table.biom -o mergedfastq/ITSR2_table
 filter_taxa_from_otu_table.py -i  mergedfastq/16S_table_tax.biom -o mergedfastq/16S_table_tax_filt.biom -n D_4__Mitochondria,D_3__Chloroplast,D_0__Archaea
 
 #summarize taxonomy
-summarize_taxa.py -i mergedfastq/16S_table_tax_filt.biom -o 16S_taxa_sum
+summarize_taxa.py -i mergedfastq/16S_table_tax_filt.biom -o mergedfastq/16S_taxa_sum
 summarize_taxa.py -i mergedfastq/ITS_table_tax.biom -o ITS_taxa_sum
 summarize_taxa.py -i mergedfastq/ITSR2_table_tax.biom -o ITSR2_taxa_sum
 ```
