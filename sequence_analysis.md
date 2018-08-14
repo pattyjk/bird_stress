@@ -29,7 +29,7 @@ cd ..
 #usearch v 10.0.24
 
 #fungi
-./usearch64 -fastq_mergepairs mergedfastq/demultiplexed_seqs_1.fq -reverse mergedfastq/demultiplexed_seqs_2.fq -fastqout mergedfastq/ITS_merged.fq -fastq_maxdiffs 10 -fastq_merge_maxee 1.0
+#./usearch64 -fastq_mergepairs mergedfastq/demultiplexed_seqs_1.fq -reverse mergedfastq/demultiplexed_seqs_2.fq -fastqout mergedfastq/ITS_merged.fq -fastq_maxdiffs 10 -fastq_merge_maxee 1.0
 ##only 24% of fungal reads could be merged will do the anaysis with both merged reads and R2
 
 #bacteria
