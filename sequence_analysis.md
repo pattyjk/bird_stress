@@ -1,25 +1,18 @@
+## Demultiplex reads
+```
+python prep_fastq_for_uparse_paired.py -o 16S_demult -m 16S_map.txt -i Madden_16s_NoIndex_L001_R1_001.fastq -r Madden_16s_NoIndex_L001_R3_001.fastq -b Madden_16s_NoIndex_L001_R2_001.fastq -c
+```
+
 ## fix read headers
 ```
 cd mergedfastq
 cp demultiplexed_seqs_2.fq ./demultiplexed_seqs_2a.fq
 
 #fix bacteria
-sed -i 's/barcodelabel/sample/g' 16S_demultiplexed_seqs_1.fq
-sed -i 's/barcodelabel/sample/g' 16S_demultiplexed_seqs_2.fq
-sed -i 's/ 1:N:0:/1:N:0/g' 16S_demultiplexed_seqs_1.fq
-sed -i 's/ 3:N:0:/3:N:0/g' 16S_demultiplexed_seqs_2.fq
-
-
 sed -i 's/barcodelabel/sample/g' demultiplexed_seqs_1.fq
 sed -i 's/barcodelabel/sample/g' demultiplexed_seqs_2.fq
-sed -i 's/ 1:N:/1:N:/g' demultiplexed_seqs_1.fq
-sed -i 's/ 3:N:/3:N:/g' demultiplexed_seqs_2.fq
-
-cp demultiplexed_seqs_2.fq ./demultiplexed_seqs_2a.fq
-
-#verify samples
-#cd ..
-#./usearch64 -fastx_get_sample_names reads.fa -output samples.txt
+sed -i 's/ 1:N:0:/1:N:0/g' demultiplexed_seqs_1.fq
+sed -i 's/ 3:N:0:/3:N:0/g' demultiplexed_seqs_2.fq
 ```
 
 ## use ITSx to remove ribosomal fragments from ITS reads
@@ -36,7 +29,7 @@ cp demultiplexed_seqs_2.fq ./demultiplexed_seqs_2a.fq
 ##only 24% of fungal reads could be merged will do the anaysis with both merged reads and R2
 
 #bacteria
-./usearch64 -fastq_mergepairs mergedfastq/16S_demultiplexed_seqs_1.fq -reverse mergedfastq/16S_demultiplexed_seqs_2.fq -fastqout mergedfastq/16S_merged.fq -fastq_maxdiffs 10 -fastq_merge_maxee 1.0
+./usearch64 -fastq_mergepairs mergedfastq/demultiplexed_seqs_1.fq -reverse mergedfastq/demultiplexed_seqs_2.fq -fastqout mergedfastq/16S_merged.fq -fastq_maxdiffs 10 -fastq_merge_maxee 1.0
 ##88% could be joined, normal amount
 ```
 
@@ -122,7 +115,7 @@ cat mergedfastq/fungiR2_closed_reference.fasta mergedfastq/fungiR2_denovo_otus.f
 
 ## Assign taxonomy to the OTUs in QIIME (v. 1.9.1)
 ```
-#source activate qiime1
+source activate qiime1
 #bacteria
 assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna'
 
@@ -137,7 +130,7 @@ assign_taxonomy.py -i mergedfastq/fungiR2_full_rep_set.fna -o mergedfastq/fungiR
 #bacteria
 biom convert -i mergedfastq/16S_OTU_table.txt -o mergedfastq/16S_OTU_table.biom --to-hdf5 --table-type='OTU table'
 
-biom add-metadata -i mergedfastq/16S_OTU_table.biom -o mergedfastq/16S_table_tax.biom --observation-metadata-fp=mergedfastq/16S_taxonomy/16S_full_rep_set_tax_assignments.txt -sc-separated=taxonomy --observation-header=OTUID,taxonomy
+biom add-metadata -i mergedfastq/16S_OTU_table.biom -o mergedfastq/16S_table_tax.biom --observation-metadata-fp=mergedfastq/16S_taxonomy/16S_full_rep_set_tax_assignments.txt --sc-separated=taxonomy --observation-header=OTUID,taxonomy
 
 #fungi
 biom convert -i mergedfastq/ITS_OTU_table.txt -o mergedfastq/ITS_OTU_table.biom --to-hdf5 --table-type='OTU table'
@@ -159,13 +152,6 @@ summarize_taxa.py -i mergedfastq/16S_table_tax_filt.biom -o 16S_taxa_sum
 summarize_taxa.py -i mergedfastq/ITS_table_tax.biom -o ITS_taxa_sum
 summarize_taxa.py -i mergedfastq/ITSR2_table_tax.biom -o ITSR2_taxa_sum
 ```
-## Get only bird samples
-```
-filter_samples_from_otu_table.py -i mergedfastq/ITSR2_table_tax.biom -o mergedfastq/ITSR2_bird_only.biom -m ITS/ITS_MappingFileMADDEN_uparse.txt -s 'Sample_Type:Bird'
-
-filter_samples_from_otu_table.py -i mergedfastq/ITS_table_tax.biom -o mergedfastq/ITS_bird_only.biom -m ITS/ITS_MappingFileMADDEN.txt -s 'Sample_Type:Bird'
-```
-
 
 ## Convert filtered OTU tables to text files
 ```
