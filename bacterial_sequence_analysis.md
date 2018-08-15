@@ -10,18 +10,13 @@ cp 16S_demult/demultiplexed_seqs_* /home/pattyjk/Bird_Stress_Project/Reads/merge
 cd ..
 cd mergedfastq
 
-#fix bacteria
 sed -i 's/barcodelabel/sample/g' demultiplexed_seqs_1.fq
 sed -i 's/barcodelabel/sample/g' demultiplexed_seqs_2.fq
 sed -i 's/ 1:N:0:/1:N:0/g' demultiplexed_seqs_1.fq
 sed -i 's/ 3:N:0:/3:N:0/g' demultiplexed_seqs_2.fq
 
 cd ..
-```
 
-## use ITSx to remove ribosomal fragments from ITS reads
-```
-#add code
 ```
 
 ## Join paired ends
