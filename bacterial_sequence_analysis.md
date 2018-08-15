@@ -2,6 +2,7 @@
 ```
 python prep_fastq_for_uparse_paired.py -o 16S_demult -m 16S_map.txt -i Madden_16s_NoIndex_L001_R1_001.fastq -r Madden_16s_NoIndex_L001_R3_001.fastq -b Madden_16s_NoIndex_L001_R2_001.fastq -c
 
+#copy reads to a new folder for analysis
 cp 16S_demult/demultiplexed_seqs_* /home/pattyjk/Bird_Stress_Project/Reads/mergedfastq/
 ```
 
