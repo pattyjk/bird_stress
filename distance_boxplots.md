@@ -1,6 +1,7 @@
   ## Distance boxplots
   ```
   source activate qiime1
+  #QIIME 1.9.1
   #calculate bray-curtis similarity
   beta_diversity.py -i 16S_table_tax_filt.biom -m bray_curtis -o beta_div
   
@@ -10,6 +11,7 @@
   
 ## Plot data in R
 ```
+#R v. 3.4
 #read data
 treat_dist<-read.delim('beta_distance.txt', header=T)
 
