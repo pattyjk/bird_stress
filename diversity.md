@@ -59,7 +59,9 @@ adonis(s16.dis3 ~ Treatment, data=s16.dis2, permutations = 10000)
 #p=9.9e-5, F(3,47)=47.82, R2=0.75
 ```
 ## Alpha Diversity
+```
 #rarefy data
+library(vegan)
 #rowSums(s16)
 s16<-rrarefy(s16, sample=333)
 
