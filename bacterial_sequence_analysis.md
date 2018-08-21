@@ -67,7 +67,7 @@ cat mergedfastq/16S_closed_reference.fasta mergedfastq/16S_denovo_otus.fasta > m
 ## Assign taxonomy to the OTUs in QIIME (v. 1.9.1)
 ```
 source activate qiime1
-assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna'
+assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna' -m rdp
 ```
 
 ## Add taxonomy to OTU table
