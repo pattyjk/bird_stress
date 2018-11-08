@@ -44,9 +44,7 @@ ba<-ggplot(meta, aes(Treatment, meta$TotalCFUBA))+
 
 library(gridExtra)
 grid.arrange(tsa, mac, pda, myco, ba)
-```
 
-## Test significance
-```
+#Test significance
 pairwise.t.test(meta$TotalCFUBA, meta$Treatment, p.adjust.method = 'hochberg')
 ```
