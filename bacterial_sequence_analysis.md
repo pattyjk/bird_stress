@@ -6,7 +6,7 @@ python prep_fastq_for_uparse_paired.py -o 16S_demult -m 16S_map.txt -i Madden_16
 cp 16S_demult/demultiplexed_seqs_* /home/pattyjk/Bird_Stress_Project/Reads/mergedfastq/
 ```
 
-## fix read headers
+## Fix headers on reads
 ```
 cd ..
 cd mergedfastq
@@ -17,7 +17,6 @@ sed -i 's/ 1:N:0:/1:N:0/g' demultiplexed_seqs_1.fq
 sed -i 's/ 3:N:0:/3:N:0/g' demultiplexed_seqs_2.fq
 
 cd ..
-
 ```
 
 ## Join paired ends
@@ -42,7 +41,7 @@ cd ..
 ./usearch64 -cluster_fast mergedfastq/16S_nosigs_uniques_combined_merged.fastq -centroids_fastq mergedfastq/16S_denoised_nosigs_uniques_combined_merged.fastq -id 0.9 -maxdiffs 5 -abskew 10 -sizein -sizeout -sort size
 ```
 
-## Closed reference pick against Silva and UNITE
+## Closed reference pick against Silva v. 1.23
 ```
 ./usearch64 -usearch_global mergedfastq/16S_denoised_nosigs_uniques_combined_merged.fastq -id 0.97 -db silva_132_97_16S.fna  -strand plus -uc mergedfastq/16S_ref_seqs.uc -dbmatched mergedfastq/16S_closed_reference.fasta -notmatchedfq mergedfastq/16S_failed_closed.fq
 ```
@@ -50,6 +49,7 @@ cd ..
 ## Sort by size and de novo pick
 ```
 ./usearch64 -sortbysize mergedfastq/16S_failed_closed.fq -fastaout mergedfastq/16S_sorted_failed_closed.fq
+
 ./usearch64 -cluster_otus mergedfastq/16S_sorted_failed_closed.fq -minsize 2 -otus mergedfastq/16S_denovo_otus.fasta -relabel OTU_dn_ -uparseout mergedfastq/16S_denovo_out.up
 ```
 
@@ -59,12 +59,12 @@ cd ..
 cat mergedfastq/16S_closed_reference.fasta mergedfastq/16S_denovo_otus.fasta > mergedfastq/16S_full_rep_set.fna
 ```
 
-## Map rep_set back to pre-dereplicated sequences and make OTU tables
+## Map rep. set back to pre-dereplicated sequences and make OTU tables
 ```
 ./usearch64 -usearch_global mergedfastq/16S_merged.fq -db mergedfastq/16S_full_rep_set.fna  -strand plus -id 0.97 -uc mergedfastq/16S_OTU_map.uc -otutabout mergedfastq/16S_OTU_table.txt -biomout mergedfastq/16S_OTU_jsn.biom
 ```
 
-## Assign taxonomy to the OTUs in QIIME (v. 1.9.1)
+## Assign taxonomy to the OTUs in QIIME (v. 1.9.1) with the RDP Classifier
 ```
 source activate qiime1
 assign_taxonomy.py -i mergedfastq/16S_full_rep_set.fna -o mergedfastq/16S_taxonomy -t '/home/pattyjk/SILVA_132_QIIME_release/taxonomy/16S_only/97/consensus_taxonomy_7_levels.txt' -r '/home/pattyjk/SILVA_132_QIIME_release/rep_set/rep_set_16S_only/97/silva_132_97_16S.fna' -m rdp
@@ -77,7 +77,7 @@ biom convert -i mergedfastq/16S_OTU_table.txt -o mergedfastq/16S_OTU_table.biom 
 biom add-metadata -i mergedfastq/16S_OTU_table.biom -o mergedfastq/16S_table_tax.biom --observation-metadata-fp=mergedfastq/16S_taxonomy/16S_full_rep_set_tax_assignments.txt --sc-separated=taxonomy --observation-header=OTUID,taxonomy
 ```
 
-## Filter out unwanted taxa Chloroplasts, mitochondria, Archaea
+## Filter out unwanted taxa: Chloroplasts, mitochondria, and Archaea
 ```
 #filter unwanted bacterial taxa
 filter_taxa_from_otu_table.py -i  mergedfastq/16S_table_tax.biom -o mergedfastq/16S_table_tax_filt.biom -n D_4__Mitochondria,D_3__Chloroplast,D_0__Archaea
