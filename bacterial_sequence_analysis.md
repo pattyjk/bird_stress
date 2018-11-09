@@ -91,4 +91,10 @@ summarize_taxa.py -i mergedfastq/16S_table_tax_filt.biom -o mergedfastq/16S_taxa
 biom convert -i mergedfastq/16S_table_tax_filt.biom -o mergedfastq/16S_table_tax_filt.txt --table-type='OTU table' --header-key=taxonomy --to-tsv
 ```
 
+## Split raw fastq reads by sampe for submission to NCBI
+```
+source activate qiime1
+split_sequence_file_on_sample_ids.py -i demultiplexed_seqs_1.fq -o R1_by_sample --file_type fastq
+split_sequence_file_on_sample_ids.py -i demultiplexed_seqs_2.fq -o R2_by_sample --file_type fastq
+```
 
