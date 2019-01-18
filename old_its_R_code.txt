@@ -1,0 +1,50 @@
+its.scores<-scores(its.pcoa)
+its.coords<-as.data.frame(its.scores$sites)
+its.coords$SampleID<-rownames(its.coords)
+its.coords<-merge(its.coords, meta, by=c('SampleID'))
+
+itsr2.scores<-scores(itsr2.pcoa)
+itsr2.coords<-as.data.frame(itsr2.scores$sites)
+itsr2.coords$SampleID<-rownames(itsr2.coords)
+itsr2.coords<-merge(itsr2.coords, meta, by=c('SampleID'))
+
+itsr2.pcoa<-capscale(itsr2 ~ 1, distance='bray')
+100*round(itsr2.pcoa$CA$eig[1]/sum(itsr2.pcoa$CA$eig), 3)
+#37.3
+100*round(itsr2.pcoa$CA$eig[2]/sum(itsr2.pcoa$CA$eig), 3)
+#19.6
+
+its.pcoa<-capscale(its ~ 1, distance='bray')
+100*round(its.pcoa$CA$eig[1]/sum(its.pcoa$CA$eig), 3)
+#13.1
+100*round(its.pcoa$CA$eig[2]/sum(its.pcoa$CA$eig), 3)
+#7.7
+
+itsr2<-read.delim('ITSR2_bird_only.txt', header=T, row.names=1)
+itsr2<-itsr2[,-130]
+itsr2<-t(itsr2)
+
+its<-read.delim("ITS_bird_only.txt", header=T, row.names=1)
+its<-its[,-130]
+its<-t(its)
+
+its.shan<-diversity(its, index='shannon')
+itsr2.shan<-diversity(itsr2, index='shannon')
+
+its.otus<-rowSums(its>0)
+itsr2.otus<-rowSums(itsr2>0)
+
+its.even<-(diversity(its))/its.otus
+itsr2.even<-(diversity(itsr2))/itsr2.otus
+
+its.div<-as.data.frame(cbind(its.shan, its.otus, its.even))
+itsr2.div<-as.data.frame(cbind(itsr2.shan, itsr2.otus, itsr2.even))
+
+its.div$SampleID<-row.names(its.div)
+itsr2.div$SampleID<-row.names(itsr2.div)
+
+names(its.div)<-c('Shannon', 'OTUs_Obs', 'Pielous_Even', 'SampleID')
+names(itsr2.div)<-c('Shannon', 'OTUs_Obs', 'Pielous_Even', 'SampleID')
+
+its.div<-merge(its.div, meta, by='SampleID')
+itsr2.div<-merge(itsr2.div, meta, by='SampleID')
