@@ -1,0 +1,72 @@
+# The tests of significance were performed using a two-sided Student's two-sample t-test.
+# Alternative hypothesis: Group 1 mean != Group 2 mean
+# Entries marked with "N/A" could not be calculated because at least one of the groups
+# of distances was empty, both groups each contained only a single distance, or
+# the test could not be performed (e.g. no variance in groups with the same mean).
+Group 1	Group 2	t statistic	Parametric p-value	Parametric p-value (Bonferroni-corrected)	Nonparametric p-value	Nonparametric p-value (Bonferroni-corrected)
+All within Treatment	All between Treatment	-20.7695816509	9.52289399787336e-83	6.285110038596417e-81	N/A	N/A
+All within Treatment	Control vs. Control	9.44515921478	0.0	0.0	N/A	N/A
+All within Treatment	No Tx vs. No Tx	4.74573376358	2.8811444434673206e-06	0.00019015553326884316	N/A	N/A
+All within Treatment	Recovery vs. Recovery	-0.699272102096	0.4848310520528676	1	N/A	N/A
+All within Treatment	Experimental vs. Experimental	-11.6672604889	5.146401393687793e-28	3.3966249198339434e-26	N/A	N/A
+All within Treatment	Control vs. No Tx	-10.1052320991	4.212437297230816e-22	2.7802086161723385e-20	N/A	N/A
+All within Treatment	Control vs. Recovery	-0.201987189571	0.8400207333358597	1	N/A	N/A
+All within Treatment	Control vs. Experimental	-17.6226035757	3.1588499405901284e-57	2.0848409607894847e-55	N/A	N/A
+All within Treatment	No Tx vs. Recovery	-5.21596232345	2.917768352604528e-07	1.9257271127189885e-05	N/A	N/A
+All within Treatment	No Tx vs. Experimental	-13.9970432487	2.6884652825435887e-38	1.7743870864787686e-36	N/A	N/A
+All within Treatment	Recovery vs. Experimental	-7.83456406759	3.534897458246461e-14	2.3330323224426644e-12	N/A	N/A
+All between Treatment	Control vs. Control	40.5082062003	0.0	0.0	N/A	N/A
+All between Treatment	No Tx vs. No Tx	23.4458438386	0.0	0.0	N/A	N/A
+All between Treatment	Recovery vs. Recovery	4.36096543402	1.4396499655955353e-05	0.0009501689772930533	N/A	N/A
+All between Treatment	Experimental vs. Experimental	-3.43625782428	0.0006124206640088846	0.04041976382458638	N/A	N/A
+All between Treatment	Control vs. No Tx	1.47260666649	0.1411416328591093	1	N/A	N/A
+All between Treatment	Control vs. Recovery	16.0840856341	0.0	0.0	N/A	N/A
+All between Treatment	Control vs. Experimental	-6.8275476524	1.3560788529902932e-11	8.950120429735935e-10	N/A	N/A
+All between Treatment	No Tx vs. Recovery	2.19667233278	0.028278852623057293	1	N/A	N/A
+All between Treatment	No Tx vs. Experimental	-4.97496432431	7.551068833368869e-07	4.983705430023453e-05	N/A	N/A
+All between Treatment	Recovery vs. Experimental	-0.022470715889	0.982076914283629	1	N/A	N/A
+Control vs. Control	No Tx vs. No Tx	-2.11786247354	0.035493881630065664	1	N/A	N/A
+Control vs. Control	Recovery vs. Recovery	-6.57297059535	8.441314080561814e-10	5.571267293170798e-08	N/A	N/A
+Control vs. Control	Experimental vs. Experimental	-34.2590102137	2.0519366668426985e-103	1.354278200116181e-101	N/A	N/A
+Control vs. Control	Control vs. No Tx	-28.5417404683	4.450852323424402e-90	2.9375625334601055e-88	N/A	N/A
+Control vs. Control	Control vs. Recovery	-12.8630048538	1.4110831533767317e-28	9.313148812286429e-27	N/A	N/A
+Control vs. Control	Control vs. Experimental	-56.4419824144	1.2629092129162296e-203	8.335200805247116e-202	N/A	N/A
+Control vs. Control	No Tx vs. Recovery	-21.5187686948	1.0284101317111033e-52	6.787506869293281e-51	N/A	N/A
+Control vs. Control	No Tx vs. Experimental	-47.3146118603	1.2943171506669964e-149	8.542493194402176e-148	N/A	N/A
+Control vs. Control	Recovery vs. Experimental	-26.4930575981	5.746546266873705e-71	3.7927205361366453e-69	N/A	N/A
+No Tx vs. No Tx	Recovery vs. Recovery	-4.00338430291	0.00016713766126320393	0.01103108564337146	N/A	N/A
+No Tx vs. No Tx	Experimental vs. Experimental	-21.356648988	3.955762028472697e-54	2.61080293879198e-52	N/A	N/A
+No Tx vs. No Tx	Control vs. No Tx	-17.0828478412	2.3630309789947456e-43	1.559600446136532e-41	N/A	N/A
+No Tx vs. No Tx	Control vs. Recovery	-7.09326205585	6.22838609167993e-11	4.110734820508753e-09	N/A	N/A
+No Tx vs. No Tx	Control vs. Experimental	-36.3419833286	2.4237669671934976e-122	1.5996861983477083e-120	N/A	N/A
+No Tx vs. No Tx	No Tx vs. Recovery	-13.8273822267	1.209176646312317e-25	7.980565865661292e-24	N/A	N/A
+No Tx vs. No Tx	No Tx vs. Experimental	-30.8698878343	1.9709763194340063e-87	1.3008443708264442e-85	N/A	N/A
+No Tx vs. No Tx	Recovery vs. Experimental	-16.6506856717	2.7439103642486733e-35	1.8109808404041245e-33	N/A	N/A
+Recovery vs. Recovery	Experimental vs. Experimental	-5.59500158485	9.28305030921222e-08	6.1268132040800645e-06	N/A	N/A
+Recovery vs. Recovery	Control vs. No Tx	-3.38409992437	0.0008632319616069364	0.0569733094660578	N/A	N/A
+Recovery vs. Recovery	Control vs. Recovery	1.24682293267	0.21559351778909908	1	N/A	N/A
+Recovery vs. Recovery	Control vs. Experimental	-11.6295947243	3.078802621353502e-26	2.0320097300933116e-24	N/A	N/A
+Recovery vs. Recovery	No Tx vs. Recovery	-4.06934074698	0.00013373428363835032	0.008826462720131122	N/A	N/A
+Recovery vs. Recovery	No Tx vs. Experimental	-10.9923086947	2.0422640705356355e-22	1.3478942865535195e-20	N/A	N/A
+Recovery vs. Recovery	Recovery vs. Experimental	-4.31102020465	3.873125631686746e-05	0.0025562629169132525	N/A	N/A
+Experimental vs. Experimental	Control vs. No Tx	3.64161200263	0.0003133882392085674	0.02068362378776545	N/A	N/A
+Experimental vs. Experimental	Control vs. Recovery	16.2645900613	0.0	0.0	N/A	N/A
+Experimental vs. Experimental	Control vs. Experimental	-1.68660434371	0.09236191592853332	1	N/A	N/A
+Experimental vs. Experimental	No Tx vs. Recovery	4.40612169242	1.6917828195239792e-05	0.0011165766608858263	N/A	N/A
+Experimental vs. Experimental	No Tx vs. Experimental	-0.875329050918	0.3819969044807	1	N/A	N/A
+Experimental vs. Experimental	Recovery vs. Experimental	2.38858282224	0.01768407260205951	1	N/A	N/A
+Control vs. No Tx	Control vs. Recovery	11.6036182582	0.0	0.0	N/A	N/A
+Control vs. No Tx	Control vs. Experimental	-7.11913080914	3.879015452303356e-12	2.5601501985202153e-10	N/A	N/A
+Control vs. No Tx	No Tx vs. Recovery	1.09110774259	0.27631965876839426	1	N/A	N/A
+Control vs. No Tx	No Tx vs. Experimental	-5.46589429292	8.317378981150144e-08	5.489470127559095e-06	N/A	N/A
+Control vs. No Tx	Recovery vs. Experimental	-0.882670174758	0.37818541652243176	1	N/A	N/A
+Control vs. Recovery	Control vs. Experimental	-28.7798342361	2.1212888894525257e-98	1.4000506670386669e-96	N/A	N/A
+Control vs. Recovery	No Tx vs. Recovery	-9.41193637334	1.4832357182822344e-16	9.789355740662747e-15	N/A	N/A
+Control vs. Recovery	No Tx vs. Experimental	-24.5245953493	8.572539116040571e-72	5.657875816586777e-70	N/A	N/A
+Control vs. Recovery	Recovery vs. Experimental	-12.0374517474	1.2382661229996509e-24	8.172556411797696e-23	N/A	N/A
+Control vs. Experimental	No Tx vs. Recovery	9.69735405262	0.0	0.0	N/A	N/A
+Control vs. Experimental	No Tx vs. Experimental	1.03651123735	0.30046272069611746	1	N/A	N/A
+Control vs. Experimental	Recovery vs. Experimental	5.56882065333	4.755063276462579e-08	3.138341762465302e-06	N/A	N/A
+No Tx vs. Recovery	No Tx vs. Experimental	-8.48628895933	1.8751001639315475e-15	1.2375661081948212e-13	N/A	N/A
+No Tx vs. Recovery	Recovery vs. Experimental	-2.03998292369	0.04319273516130149	1	N/A	N/A
+No Tx vs. Experimental	Recovery vs. Experimental	4.36546780356	1.7744974465605523e-05	0.0011711683147299645	N/A	N/A
