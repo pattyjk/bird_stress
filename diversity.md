@@ -112,3 +112,6 @@ pairwise.t.test(s16.div$Shannon, s16.div$Treatment, p.adjust.method = 'hochberg'
 pairwise.t.test(s16.div$OTUs_Obs, s16.div$Treatment, p.adjust.method = 'hochberg')
 pairwise.t.test(s16.div$Pielous_Even, s16.div$Treatment, p.adjust.method = 'hochberg')
 ```
+
+
+
