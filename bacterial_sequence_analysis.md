@@ -5,7 +5,6 @@ python prep_fastq_for_uparse_paired.py -o 16S_demult -m 16S_map.txt -i Madden_16
 #copy reads to a new folder for analysis
 cp 16S_demult/demultiplexed_seqs_* /home/pattyjk/Bird_Stress_Project/Reads/mergedfastq/
 ```
-
 ## Fix headers on reads
 ```
 cd ..
@@ -93,8 +92,15 @@ biom convert -i mergedfastq/16S_table_tax_filt.biom -o mergedfastq/16S_table_tax
 
 ## Split raw fastq reads by sampe for submission to NCBI
 ```
-source activate qiime1
-split_sequence_file_on_sample_ids.py -i demultiplexed_seqs_1.fq -o R1_by_sample --file_type fastq
-split_sequence_file_on_sample_ids.py -i demultiplexed_seqs_2.fq -o R2_by_sample --file_type fastq
+#QIIME 1.9.1
+
+#demultiplex each read individually 
+split_libraries_fastq.py -i Madden_16s_NoIndex_L001_R1_001.fastq -b Madden_16s_NoIndex_L001_R2_001.fastq -m 16S_map.txt --store_demultiplexed_fastq -o demult_r1 --barcode_type 12 --rev_comp_mapping_barcodes
+
+split_libraries_fastq.py -i Madden_16s_NoIndex_L001_R3_001.fastq -b Madden_16s_NoIndex_L001_R2_001.fastq -m 16S_map.txt --store_demultiplexed_fastq -o demult_r2 --barcode_type 12 --rev_comp_mapping_barcodes
+
+#split demultiplexed fastq files by sample ID
+split_sequence_file_on_sample_ids.py -i demult_r1/seqs.fastq -o R1_by_sample --file_type fastq
+split_sequence_file_on_sample_ids.py -i demult_r2/seqs.fastq -o R2_by_sample --file_type fastq
 ```
 
