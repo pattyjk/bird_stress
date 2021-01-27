@@ -78,3 +78,16 @@ ggplot(fam_m_split, aes(SampleID, Rel_abun, fill=Family))+
   facet_wrap(~Treatment, scales = 'free')+
   theme(text = element_text(size=14), axis.text.x = element_blank())
 ```
+
+## Plot Phylum-level
+ggplot(fam_m_split, aes(SampleID, Rel_abun, fill=Phylum))+
+  geom_bar(stat='identity')+
+  scale_y_continuous(expand=c(0,0))+
+  scale_fill_manual(values=pal)+
+  guides(fill=guide_legend(ncol=1))+
+  xlab("")+
+  ylab("Relative Abundance")+
+  theme_bw()+
+  facet_wrap(~Treatment, scales = 'free')+
+  theme(text = element_text(size=14), axis.text.x = element_blank())
+```
