@@ -80,6 +80,7 @@ ggplot(fam_m_split, aes(SampleID, Rel_abun, fill=Family))+
 ```
 
 ## Plot Phylum-level
+```
 ggplot(fam_m_split, aes(SampleID, Rel_abun, fill=Phylum))+
   geom_bar(stat='identity')+
   scale_y_continuous(expand=c(0,0))+
