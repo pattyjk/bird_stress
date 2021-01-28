@@ -91,4 +91,31 @@ ggplot(fam_m_split, aes(SampleID, Rel_abun, fill=Phylum))+
   theme_bw()+
   facet_wrap(~Treatment, scales = 'free')+
   theme(text = element_text(size=14), axis.text.x = element_blank())
+
+#phylum level jitter plot
+#select only Proteobacteria and Firmucutes
+
+#identify rows with Proteobacteria (gram -) and Firmicutes (gram +)
+firm<-which(fam_m_split$Phylum == "D_1__Firmicutes")
+prot<- which(fam_m_split$Phylum == "D_1__Proteobacteria")
+
+#create individual tables and then join them
+firm_table<-fam_m_split[firm,]
+prot_table<-fam_m_split[prot,]
+firm_prot_table<-rbind(firm_table, prot_table)
+
+#fix names
+firm_prot_table$Phylum<-gsub('D_1__Proteobacteria', 'Proteobacteria', firm_prot_table$Phylum)
+firm_prot_table$Phylum<-gsub('D_1__Firmicutes', 'Firmicutes', firm_prot_table$Phylum)
+
+
+#plot
+ggplot(firm_prot_table, aes(Treatment, Rel_abun, fill=Treatment))+
+geom_boxplot()+
+#geom_jitter()+
+facet_wrap(~Phylum, scales='free')+
+xlab("Treatment")+
+ylab("Relative Abundance")+
+  theme_bw()+
+  theme(text = element_text(size=14), axis.text.x = element_blank())
 ```
