@@ -118,4 +118,19 @@ xlab("Treatment")+
 ylab("Relative Abundance")+
   theme_bw()+
   theme(text = element_text(size=14), axis.text.x = element_blank())
+  
+ #pairwise t-test for Proteobacteria
+ pairwise.t.test(prot_table$Rel_abun, prot_table$Treatment, p.adjust.method = 'hochberg')
+ 
+           Control Recovery Stressed
+Recovery   0.16703 -        -       
+Stressed   2.4e-06 0.21141  -       
+Wild Birds 0.35927 0.35927  0.00062 
+ 
+  #pairwise t-test for Firmicutes
+ pairwise.t.test(firm_table$Rel_abun, firm_table$Treatment, p.adjust.method = 'hochberg')
+           Control Recovery Stressed
+Recovery   0.13    -        -       
+Stressed   1.9e-05 0.39     -       
+Wild Birds 3.0e-05 0.39     0.89 
 ```
