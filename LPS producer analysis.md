@@ -41,11 +41,13 @@ library(plyr)
 sum<-ddply(fams_lps2, c("Treatment", "Probable.LPS.producer"), summarize, mean=mean(value), sd=sd(value), n=length(value), se=sd/n)
 write.table(sum, file='lps_summary.txt', quote=F)
 
+#make figure
+library(ggplot2)
 lps<-read.delim("bird_lps.txt", header=T)
-ggplot(lps, aes(LPS.producer, Mean.RA))+
+ggplot(lps, aes(LPS.status, Mean.RA))+
 geom_bar(stat="identity", width = 1, color = "black")+
-geom_errorbar(aes(ymin=Mean.RA-StDev , ymax=Mean.RA+StDev ), width=.2)+
-facet_wrap(~Sample.Type)+
+geom_errorbar(aes(ymin=Mean.RA, ymax=Mean.RA+StDev ), width=.2)+
+facet_wrap(~Treatment)+
 xlab("LPS producer status")+
 ylab("Mean Relative abundance")+
 theme_bw()+
