@@ -43,10 +43,15 @@ write.table(sum, file='lps_summary.txt', quote=F)
 
 lps<-read.delim("bird_lps.txt", header=T)
 ggplot(lps, aes(LPS.producer, Mean.RA))+
-geom_bar(stat="identity")+
+geom_bar(stat="identity", width = 1, color = "black")+
 geom_errorbar(aes(ymin=Mean.RA-StDev , ymax=Mean.RA+StDev ), width=.2)+
 facet_wrap(~Sample.Type)+
 xlab("LPS producer status")+
-ylab("Relative abundance")+
-theme_bw()
+ylab("Mean Relative abundance")+
+theme_bw()+
+theme(
+plot.title = element_text(size=14), text = element_text(size=14), 
+axis.title.x = element_text(size=18, face="bold"),
+axis.title.y = element_text( size=18, face="bold")
+)
 ```
